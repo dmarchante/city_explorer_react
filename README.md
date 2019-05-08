@@ -1,3 +1,15 @@
+Project Information:
+
+Number and name of feature: City Explorer Part 1
+
+Estimate of time needed to complete: 2 hrs
+
+Start time: 0900
+
+Finish time: 1000
+
+Actual time needed to complete: 1 hr
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -1,17 +1,16 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 export default class Results extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      title: 'Lorem Ipsum'
-    }
-  }
-
   render() {
+    console.log('results');
     return (
-      <section>{this.state.title}</section>
+      <Fragment>
+        <h2>{this.props.title}</h2>
+        <ul>
+          {this.props.children}
+        </ul>
+      </Fragment>
     )
   }
 }
+

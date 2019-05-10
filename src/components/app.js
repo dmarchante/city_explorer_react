@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import superagent from 'superagent';
 import Header from './header.js';
 import Map from './map.js';
@@ -10,7 +10,13 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      location: {}
+      location: {},
+      weatherData: {},
+      yelpData: {},
+      eventsData: {},
+      movieData: {},
+      resource: '',
+      apiUrl: 'https://still-caverns-25372.herokuapp.com'
     }
   }
 
@@ -20,36 +26,57 @@ class Main extends Component {
     this.setState({searchQuery: e.target.value});
   }
 
-  handleAPIRequests = e => {
+  handleLocationRequests = e => {
     e.preventDefault();
 
-    let searchQuery = e.target.childNodes[0].value;
-    console.log(searchQuery);
+    const searchQuery = e.target.childNodes[0].value;
 
-    superagent.get(`https://still-caverns-25372.herokuapp.com/location?data=${searchQuery}`)
-      .then(data => {
-        this.setState({location: data.body});
-        console.log(this.state.location);
+    superagent.get(`${this.state.apiUrl}/location?data=${searchQuery}`)
+      .then(response => {
+        this.setState({location: response.body});
+        this.handleResourceRequests('weather');
+        this.handleResourceRequests('yelp');
+        this.handleResourceRequests('events');
+        this.handleResourceRequests('movies');
       });
+  }
+
+  handleResourceRequests = (resource) => {
+    superagent.get(`${this.state.apiUrl}/${resource}`, {data: this.state.location})
+      .then(results => {
+        if (resource === 'weather') {
+          this.setState({weatherData: results.body});
+          console.log(this.state.weatherData);
+        } else if (resource === 'yelp') {
+          this.setState({yelpData: results.body});
+          console.log(this.state.yelpData);
+        } else if (resource === 'events') {
+          this.setState({eventsData: results.body});
+          console.log(this.state.eventsData);
+        } else if (resource === 'movies') {
+          this.setState({moviesData: results.body});
+          console.log(this.state.moviesData);
+        }
+      })
   }
 
   render() {
     return (
-    <>
-      <SearchForm setSearchQuery={this.setSearchQuery} results={this.handleAPIRequests}></SearchForm>
+    <Fragment>
+      <SearchForm setSearchQuery={this.setSearchQuery} results={this.handleLocationRequests}></SearchForm>
       <Map location={this.state.location}></Map>
-      <SearchResults></SearchResults>
-    </>
+      <SearchResults api={this.state.apiUrl} resource={this.setResource} weatherData={this.state.weatherData}></SearchResults>
+    </Fragment>
     )
   }
 }
 
 function App() {
   return (
-    <>
+    <Fragment>
       <Header></Header>
       <Main></Main>
-    </>
+    </Fragment>
   );
 }
 

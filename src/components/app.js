@@ -4,26 +4,17 @@ import Header from './header.js';
 import Map from './map.js';
 import SearchResults from './search-results.js';
 import SearchForm from './search-form';
+import If from './if.js'
 
 class Main extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      location: {},
-      weatherData: {},
-      yelpData: {},
-      eventsData: {},
-      movieData: {},
-      resource: '',
+      location: null,
+      searchQuery: '',
       apiUrl: 'https://still-caverns-25372.herokuapp.com'
     }
-  }
-
-  setSearchQuery = e => {
-    e.preventDefault();
-
-    this.setState({searchQuery: e.target.value});
   }
 
   handleLocationRequests = e => {
@@ -33,39 +24,23 @@ class Main extends Component {
 
     superagent.get(`${this.state.apiUrl}/location?data=${searchQuery}`)
       .then(response => {
-        this.setState({location: response.body});
-        this.handleResourceRequests('weather');
-        this.handleResourceRequests('yelp');
-        this.handleResourceRequests('events');
-        this.handleResourceRequests('movies');
+        this.setState({
+          location: response.body
+        });
       });
-  }
-
-  handleResourceRequests = (resource) => {
-    superagent.get(`${this.state.apiUrl}/${resource}`, {data: this.state.location})
-      .then(results => {
-        if (resource === 'weather') {
-          this.setState({weatherData: results.body});
-          console.log(this.state.weatherData);
-        } else if (resource === 'yelp') {
-          this.setState({yelpData: results.body});
-          console.log(this.state.yelpData);
-        } else if (resource === 'events') {
-          this.setState({eventsData: results.body});
-          console.log(this.state.eventsData);
-        } else if (resource === 'movies') {
-          this.setState({moviesData: results.body});
-          console.log(this.state.moviesData);
-        }
-      })
   }
 
   render() {
     return (
     <Fragment>
-      <SearchForm setSearchQuery={this.setSearchQuery} results={this.handleLocationRequests}></SearchForm>
-      <Map location={this.state.location}></Map>
-      <SearchResults api={this.state.apiUrl} resource={this.setResource} weatherData={this.state.weatherData}></SearchResults>
+      <SearchForm results={this.handleLocationRequests}></SearchForm>
+      <If condition={this.state.location !== null}>
+        <Map location={this.state.location}></Map>
+        <SearchResults
+          apiUrl={this.state.apiUrl}
+          location={this.state.location}
+        ></SearchResults>
+      </If>
     </Fragment>
     )
   }

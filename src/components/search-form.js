@@ -15,7 +15,6 @@ export default class SearchForm extends Component {
     <>
     <form onSubmit={this.props.results}>
       <input id="searchQuery" name="searchQuery" type="text" placeholder={this.state.searchPlaceholder}></input>
-
       <button type="submit">{this.state.buttonTitle}</button>
     </form>
     </>

@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import superagent from 'superagent';
 import Results from './results.js';
-// import If from './if.js';
 
 export default class SearchResults extends Component {
   constructor(props) {
@@ -25,10 +24,8 @@ export default class SearchResults extends Component {
       weatherData,
       yelpData,
       eventsData,
-      // movieData,
+      movieData,
     })
-
-    console.log('ran didMount')
   }
 
   handleResourceRequests = (resource) => {
@@ -55,8 +52,7 @@ export default class SearchResults extends Component {
     }
   
     if (this.state.movieData) {
-      console.log(this.state.movieData)
-      // movies = this.state.movieData.map((movie, index) => <li key={index}>{movie}</li>);
+      movies = this.state.movieData.map((movie, index) => <li key={index}><p>{movie.title} was released {movie.realesed_on}. Out of total votes {movie.title} has an average vote of {movie.average_votes} and a popularity score of {movie.popularity}</p><img src={movie.image_url}></img><p>{movie.overview}</p></li>);
     }
 
     return (

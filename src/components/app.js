@@ -3,8 +3,9 @@ import superagent from 'superagent';
 import Header from './header.js';
 import Map from './map.js';
 import SearchResults from './search-results.js';
-import SearchForm from './search-form';
-import If from './if.js'
+import SearchForm from './search-form.js';
+import If from './if.js';
+import '../scss/core.scss'
 
 class Main extends Component {
   constructor(props) {
@@ -49,8 +50,10 @@ class Main extends Component {
 function App() {
   return (
     <Fragment>
-      <Header></Header>
-      <Main></Main>
+      <div className="container">
+        <Header></Header>
+        <Main></Main>
+      </div>
     </Fragment>
   );
 }

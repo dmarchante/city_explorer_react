@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component, Fragment } from 'react';
 
 export default class SearchForm extends Component {
   constructor(props) {
@@ -12,12 +12,14 @@ export default class SearchForm extends Component {
 
   render() {
     return ( 
-    <>
-    <form onSubmit={this.props.results}>
-      <input id="searchQuery" name="searchQuery" type="text" placeholder={this.state.searchPlaceholder}></input>
-      <button type="submit">{this.state.buttonTitle}</button>
-    </form>
-    </>
+    <Fragment>
+      <div className="search-form">
+        <form onSubmit={this.props.results}>
+          <input id="searchQuery" name="searchQuery" type="text" placeholder={this.state.searchPlaceholder}></input>
+          <button type="submit">{this.state.buttonTitle}</button>
+        </form>
+      </div>
+    </Fragment>
     )
   }
 }

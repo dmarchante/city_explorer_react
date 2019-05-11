@@ -5,10 +5,12 @@ export default class Results extends React.Component {
     console.log('results');
     return (
       <Fragment>
-        <h2>{this.props.title}</h2>
-        <ul>
-          {this.props.children}
-        </ul>
+        <div className="result-section_item">
+          <h2>{this.props.title}</h2>
+          <ul>
+            {this.props.children}
+          </ul>
+        </div>
       </Fragment>
     )
   }

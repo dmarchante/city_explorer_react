@@ -1,0 +1,14 @@
+.container {
+  text-align: center;
+}
+
+.results-section{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 15px;
+
+  img {
+    width: 200px;
+    height: auto;
+  }
+}

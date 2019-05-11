@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 
 export default class Map extends Component {
   render() {
@@ -7,9 +7,11 @@ export default class Map extends Component {
     &key=${geocodeKey}`
 
     return (
-    <>
-      <img id="map" src={url} alt="Map of search query"/>
-    </>
+    <Fragment>
+      <div className="map-section">
+        <img id="map" src={url} alt="Map of search query"/>
+      </div>
+    </Fragment>
     )
   }
 }

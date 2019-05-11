@@ -57,18 +57,20 @@ export default class SearchResults extends Component {
 
     return (
       <Fragment>
-      <Results title="Dark Sky">
-        {dailyWeather}
-      </Results>
-      <Results title="Yelp">
-        {yelp}
-      </Results>
-      <Results title="Eventbrite">
-        {events}
-      </Results>
-      <Results title="Movie">
-        {movies}
-      </Results>
+        <div className="results-section">
+          <Results title="Dark Sky">
+            {dailyWeather}
+          </Results>
+          <Results title="Yelp">
+            {yelp}
+          </Results>
+          <Results title="Eventbrite">
+            {events}
+          </Results>
+          <Results title="Movie">
+            {movies}
+          </Results>
+        </div>
     </Fragment>
     )
   }
